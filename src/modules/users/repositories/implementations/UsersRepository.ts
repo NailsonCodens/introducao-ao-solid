@@ -51,7 +51,6 @@ class UsersRepository implements IUsersRepository {
       admin: true,
       updated_at: new Date(),
     });
-
     return user;
   }
 
