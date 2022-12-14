@@ -1,0 +1,266 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Introdução ao Solid",
+    "description": "This is an Introdução ao Solid",
+    "version": "1.0.0",
+    "contact": {
+      "email": "nailson@codens.com.br"
+    }
+  },
+  "tags": [{
+    "name": "Users",
+    "description": "User Management"
+  }],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Route for create a new user",
+        "description": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "description": "Required fields usre creation ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Nailson",
+                  "email": "nailson@codens.com.br"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully performed operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Nailson"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "nailson@codens.com.br"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email is already being used",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "Mensagem do erro"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "Route for search all users",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true, 
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            }            
+          }
+        ],        
+        "description": "Only admins can access",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Route for search specific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "User Id",            
+            "required": true,
+            "schema":{
+            }            
+          }
+        ],        
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }      
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Route for turn user admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true, 
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            }            
+          }
+        ],        
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "admin": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2017-07-21T17:32:28Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }      
+    }
+  }
+}
